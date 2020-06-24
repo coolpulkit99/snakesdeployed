@@ -1,0 +1,22 @@
+.Row{
+    height: 50px;
+    /* width: 500px; */
+    display: flex;
+
+}
+
+.cellClass{
+width: 50px;
+border: 1px black solid;
+}
+.class0{
+background-color:white;    
+}
+
+.class1{
+    background-color:black;    
+}
+    
+.class2{
+    background-color:red;    
+}
