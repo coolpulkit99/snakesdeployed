@@ -1,13 +1,26 @@
 .Row{
-    height: 50px;
+    /* height: 50px; */
     /* width: 500px; */
-    display: flex;
+    /* display: flex; */
+    /* /* height: auto; */
+    /* width: auto; */ 
+    /* height: 10pt;
+    width: 10pt; */
+    /* width: fit-content;
+    height: fit-content; */
+/* justify-content: space-evenly; */
+/* height: 10px;
 
+border: 1px black solid; */
 }
 
 .cellClass{
-width: 50px;
-border: 1px black solid;
+/* width: 50px; */
+/* width: auto;
+height: auto; */
+/* border: 1px black solid; */
+height: 10px;
+width: 10px;
 }
 .class0{
 background-color:white;    

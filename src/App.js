@@ -11,11 +11,11 @@ function handleKey(e) {
 }
 
 //update array with new positions
-function processArray(snakepos, foodpos) {
+function processArray(snakepos, foodpos, size) {
   let gridv = new Array();
-  for (let row = 0; row < 10; row++) {
+  for (let row = 0; row < size; row++) {
     let temp = new Array();
-    for (let col = 0; col < 10; col++) {
+    for (let col = 0; col < size; col++) {
       temp.push(0);
     }
     gridv.push(temp);
@@ -30,7 +30,7 @@ function processArray(snakepos, foodpos) {
 
 //create new snake position
 
-function addNewPos(dir, element) {
+function addNewPos(dir, element, size) {
   let x = element[0];
   let y = element[1];
 
@@ -45,38 +45,40 @@ function addNewPos(dir, element) {
       break;
   };
   if (x < 0)
-    x = 9;
-  if (x > 9)
+    x = size - 1;
+  if (x > size - 1)
     x = 0;
   if (y < 0)
-    y = 9;
-  if (y > 9)
+    y = size - 1;
+  if (y > size - 1)
     y = 0;
   return [x, y];
 }
 
 let gameOver = 0;
 //main react component
-function App() {
+function App(props) {
 
   let gridv = new Array();
-  for (let row = 0; row < 10; row++) {
+  for (let row = 0; row < props.size; row++) {
     let temp = new Array();
-    for (let col = 0; col < 10; col++) {
+    for (let col = 0; col < props.size; col++) {
       temp.push(0);
     }
     gridv.push(temp);
   }
   //inital positions 
-  gridv[4][4] = 2;
-  gridv[5][5] = 1;
+  gridv[Math.floor(props.size / 2)][Math.floor(props.size / 2)] = 2;
+  let tempvaradd = Math.floor(props.size / 2) + 1;
+  // console.log(Math.floor(props.size / 2));
+  gridv[tempvaradd][tempvaradd] = 1;
   //1 is snake
   //2 is food
 
   const [score, updateScore] = useState(0);
   const [grid, updateGrid] = useState(gridv);
-  const [foodpos, updateFood] = useState([4, 4]);
-  const [snakepos, updateSnake] = useState([[5, 5]]);
+  const [foodpos, updateFood] = useState([Math.floor(props.size / 2), Math.floor(props.size / 2)]);
+  const [snakepos, updateSnake] = useState([[Math.floor(props.size / 2) + 1, Math.floor(props.size / 2) + 1]]);
   const [snakedir, updateDir] = useState(1);
   //1 left
   //3 right
@@ -85,15 +87,16 @@ function App() {
   document.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 37:
+        updateDir(4);
+        break;
+      case 38:
         updateDir(1);
         break;
-      case 38: updateDir(4);
-        break;
       case 39:
-        updateDir(3);
+        updateDir(2);
         break;
       case 40:
-        updateDir(2);
+        updateDir(3);
         break;
     }
     // console.log(snakedir);
@@ -103,18 +106,18 @@ function App() {
   useEffect(() => {
     //game timer
     const interval = setInterval(() => {
-      
+
       if (gameOver == 1)
         return () => clearInterval(interval);
       // console.log(snakepos);
-      
-      snakepos.push(addNewPos(snakedir, snakepos[snakepos.length - 1]));
+
+      snakepos.push(addNewPos(snakedir, snakepos[snakepos.length - 1], props.size));
       let lastpos = snakepos[snakepos.length - 1];
       //check if food is eaten
       if (lastpos[0] == foodpos[0] && lastpos[1] == foodpos[1]) {
         updateScore(score + 1);
-        let newX = Math.floor(Math.random() * 10);
-        let newY = Math.floor(Math.random() * 10);
+        let newX = Math.floor(Math.random() * props.size);
+        let newY = Math.floor(Math.random() * props.size);
         updateFood([newX, newY]);
       } else {
         snakepos.shift();
@@ -127,31 +130,34 @@ function App() {
       });
       if (countcollision > 1) {
         gameOver = 1;
+
         document.removeEventListener('keydown', () => { });
+
         let gridv = new Array();
-        for (let row = 0; row < 10; row++) {
+        for (let row = 0; row < props.size; row++) {
           let temp = new Array();
-          for (let col = 0; col < 10; col++) {
+          for (let col = 0; col < props.size; col++) {
             temp.push(0);
           }
           gridv.push(temp);
         }
-        for (let row = 0; row < 10; row++) {
-          for (let col = 0; col < 10; col++) {
+        for (let row = 0; row < props.size; row++) {
+          for (let col = 0; col < props.size; col++) {
             gridv[row][col] = 2;
-            setTimeout(() => { updateGrid(gridv) }, 100);
+            // setTimeout(() => { updateGrid(gridv) }, 1000);
           }
 
         }
+        updateGrid(gridv)
 
         return;
       }
-      console.log(gameOver);
+      // console.log(gameOver);
       // if (snakepos[0] >= 0 && snakepos[0] < 10 && snakepos[1] >= 0 && snakepos[1] < 10) 
       {
         updateSnake(snakepos);
         // console.log("move");
-        updateGrid(processArray(snakepos, foodpos));
+        updateGrid(processArray(snakepos, foodpos, props.size));
       }
     }, 100);
     return () => clearInterval(interval);

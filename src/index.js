@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Input from './components/Input';
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    
+<Input></Input>
+    {/* <App id="boardgame" size={20}/> */}
+
   </React.StrictMode>,
   document.getElementById('root')
 );

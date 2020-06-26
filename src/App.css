@@ -1,5 +1,15 @@
 .Board{
-  height: 500px;
-  border:1px black solid;
-  width: 500px;
+  display: flex;
+/* display: grid; */
+/* justify-content: ; */
+/* display: block; */
+/* flex-direction: column ; */
+/* justify-content: space-evenly ; */
+  /* height: 500px; */
+  /* border:1px black solid; */
+  /* width: 500px; */
+height: fit-content;
+width: fit-content;
+  /* align-items: flex-end;
+  justify-content: space-evenly; */
 }
