@@ -1,5 +1,10 @@
 .Board{
   display: flex;
+
+flex-direction: column;
+
+
+
 /* display: grid; */
 /* justify-content: ; */
 /* display: block; */
@@ -8,8 +13,70 @@
   /* height: 500px; */
   /* border:1px black solid; */
   /* width: 500px; */
-height: fit-content;
-width: fit-content;
+/*  */
+  /* height: fit-content;
+  width: fit-content; */
+/*  */
   /* align-items: flex-end;
   justify-content: space-evenly; */
+border: 4px solid white;
+}
+
+.size1{
+  height: 200px;
+width: 200px;
+}
+
+.size2{
+  height: 400px;
+width: 400px;
+}
+
+.size3{
+  height: 800px;
+width: 800px;
+}
+
+.outercontainer{
+  border: 1px solid white;
+  color: aqua;
+}
+.gameBox{
+  display: flex;
+  flex-direction:column ;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.scoreBoard{
+  margin: 5px;
+  border-radius: 20%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 1%;
+  padding-bottom: 2%;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+font-size: 50px;
+  border: 4px white solid;
+  color:blue;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+
+
+.score{
+
+  color:red;
+  font-family:fantasy;
+
+}
+
+.panelButton{
+  background-color: red;
+  color:white;
+  border-radius: 20%;
+  font-size:medium ;
+  /* padding: 0%; */
 }

@@ -9,6 +9,31 @@ function handleGrid() {
 function handleKey(e) {
 
 }
+const gameOvergrid=[
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[3,3,3,3,0,0,3,0,0,3,3,0,3,3,0,3,3,3,3,0],
+[3,0,0,0,0,3,0,3,0,3,0,3,0,3,0,3,3,0,0,0],
+[3,0,3,3,0,3,3,3,0,3,0,3,0,3,0,3,3,3,3,0],
+[3,0,0,3,0,3,0,3,0,3,0,0,0,3,0,3,3,0,0,0],
+[3,3,3,3,0,3,0,3,0,3,0,0,0,3,0,3,3,3,3,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[3,3,3,3,0,3,0,0,0,3,0,3,3,3,3,0,3,3,3,3],
+[3,0,0,3,0,3,0,0,0,3,0,3,3,0,0,0,3,0,0,3],
+[3,0,0,3,0,3,0,0,0,3,0,3,3,3,3,0,3,3,3,3],
+[3,0,0,3,0,0,3,0,3,0,0,3,3,0,0,0,3,0,3,0],
+[3,3,3,3,0,0,0,3,0,0,0,3,3,3,3,0,3,0,3,3],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+]
+function limitWrapChecker(minlimit,maxlimit,value){
+  if(value>maxlimit)
+  return maxlimit;
+  if(value<minlimit)
+  return minlimit;
+  return value;
+}
 
 //update array with new positions
 function processArray(snakepos, foodpos, size) {
@@ -80,6 +105,7 @@ function App(props) {
   const [foodpos, updateFood] = useState([Math.floor(props.size / 2), Math.floor(props.size / 2)]);
   const [snakepos, updateSnake] = useState([[Math.floor(props.size / 2) + 1, Math.floor(props.size / 2) + 1]]);
   const [snakedir, updateDir] = useState(1);
+  const [gridSize,setGridSize]=useState(2);
   //1 left
   //3 right
   //2 down
@@ -87,16 +113,16 @@ function App(props) {
   document.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
       case 37:
-        updateDir(4);
-        break;
-      case 38:
         updateDir(1);
         break;
+      case 38:
+        updateDir(4);
+        break;
       case 39:
-        updateDir(2);
+        updateDir(3);
         break;
       case 40:
-        updateDir(3);
+        updateDir(2);
         break;
     }
     // console.log(snakedir);
@@ -143,12 +169,12 @@ function App(props) {
         }
         for (let row = 0; row < props.size; row++) {
           for (let col = 0; col < props.size; col++) {
-            gridv[row][col] = 2;
+            gridv[row][col] = 3;
             // setTimeout(() => { updateGrid(gridv) }, 1000);
           }
 
         }
-        updateGrid(gridv)
+        updateGrid(gameOvergrid)
 
         return;
       }
@@ -166,12 +192,20 @@ function App(props) {
 
   return (
     <div>
-      <label>Score:{score}</label>
-      <div className="Board">
-        {grid.map((ind) =>
-          <Row rowval={ind} />
-        )}
+      <div className="gameBox">
+        <label className="scoreBoard">Score:<br/><label className="score">{score}</label></label>
+        {/* <br></br> */}
+        <div className="controlPanel">
+        <button className="panelButton gridSizeDec" onClick={()=>{setGridSize(limitWrapChecker(1,3,gridSize-1))}}>-</button>
+        <button className="panelButton gridSizeInc" onClick={()=>{setGridSize(limitWrapChecker(1,3,gridSize+1))}}>+</button>
+        {/* <button className="toggleGrid"></button>   */}
+        </div>
+        <div className={"Board size"+gridSize}>
+          {grid.map((ind) =>
+            <Row rowval={ind} />
+          )}
 
+        </div>
       </div>
     </div>
   );

@@ -12,24 +12,46 @@
 /* height: 10px;
 
 border: 1px black solid; */
+/* border: 1px black solid;  */
+flex-grow: 1;
+display: flex;
+flex-direction: row;
+
+
+background-color:grey;    
+
 }
 
 .cellClass{
+    flex-grow: 1;
 /* width: 50px; */
 /* width: auto;
 height: auto; */
 /* border: 1px black solid; */
-height: 10px;
-width: 10px;
+
+
+/* uncomment below for mode 2 */
+/* height: 10px;
+width: 10px; */
 }
+
+
 .class0{
-background-color:white;    
+background-color:grey;    
+
 }
 
 .class1{
     background-color:black;    
+    border-radius: 50%;   
 }
     
 .class2{
-    background-color:red;    
+    background-color:red; 
+    border-radius: 30%;   
+}
+
+.class3{
+    background-color:red; 
+    border-radius: 0%;   
 }
